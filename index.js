@@ -10,6 +10,7 @@ const stopServer = async (url) =>{
     if(Status.daysRemaining >= 10) return false
 
     const {stdout, stderr} = await exec("sudo /opt/bitnami/ctlscript.sh stop")
+    
     console.log(stdout)
 
     return true;
