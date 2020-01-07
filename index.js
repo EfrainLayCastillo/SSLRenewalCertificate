@@ -7,7 +7,7 @@ const SSLStatus = async (hostname) => await sslChecker(hostname, {method: "GET",
 const stopServer = async (url) =>{
     const Status = await SSLStatus(url)
     console.log("1")
-    if(Status.daysRemaining >= 10) return Status
+    if(Status.daysRemaining >= 30) return Status
     console.log("2")
     const {stdout, stderr} = await exec("sudo /opt/bitnami/ctlscript.sh stop")
     
@@ -25,7 +25,7 @@ const renewCertificate = async (url)=>{
     }
 }
 
-renewCertificate("olgasinclair.org")
+renewCertificate("nitocortizo.com")
         .then((result) => {
             console.log("4")
             console.info(result)
