@@ -26,7 +26,7 @@ const legoVersion = async ()=>{
 }
 
 const stopServer = async (url) =>{
-    return await exec("sudo /opt/bitnami/ctlscript.sh stop")
+    return await exec("sudo /opt/bitnami/ctlscript.sh apache stop")
 }
 
 const startServer = async()=>{
