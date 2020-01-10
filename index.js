@@ -44,7 +44,12 @@ const renewCertificate = async (url)=>{
         const responseStopServer = await stopServer(url)
         console.log(responseStopServer.stdout);
         const {stdout,  stderr} = await exec(`sudo /opt/bitnami/letsencrypt/lego --tls --email="soporte@bluetideconsulting.com" --domains="${url}" --path="/opt/bitnami/letsencrypt" renew --days 90`)
-        if(stderr != '') return stderr.toString()
+        if(stderr != ''){
+            console.log(stderr.toString())
+            console.log(stdout.toString())
+            return false;
+        } 
+        console.log(stdout.toString());
         console.log(stdout.toString());
         console.log("Iniciando Servidor")
         const  responseStartServer = await startServer();
@@ -61,4 +66,7 @@ renewCertificate(argUrl)
         .then((result) => {
             console.log("Servidor Corriendo")
             console.info(result)
-        }).catch(e => e );
+        }).catch(e => {
+            console.log(e)
+            startServer()
+        });
