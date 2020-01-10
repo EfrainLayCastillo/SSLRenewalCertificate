@@ -9,7 +9,7 @@ console.log(argUrl);
 
 const SSLStatus = async (hostname) => await sslChecker(hostname, {method: "GET", port: "443"});
 const legoVersion = async ()=>{
-    const {stdout, stderr} = await exec("sudo /opt/bitnami/letsencrypt/lego --version")
+    const {stdout, stderr} = await exec("sudo lego --version")
     let number
     if(stderr == ''){
         number = stdout.split(" ")[2]
