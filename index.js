@@ -25,7 +25,7 @@ const renewCertificate = async (url)=>{
     const StopServer = await stopServer(url)
 
         console.log("Listo para actualizar")
-        const {stdout,  stderr} = await exec(`sudo /opt/bitnami/letsencrypt/lego -tls --email="soporte@bluetideconsulting.com" --domains="${url}" --path="/etc/lego" renew --days 90`)
+        const {stdout,  stderr} = await exec(`sudo lego --tls --email="soporte@bluetideconsulting.com" --domains="${url}" --path="/etc/lego" renew --days 90`)
         console.log(stdout.toString());
         console.log(stderr.toString());
         console.log("Iniciando Servidor")
