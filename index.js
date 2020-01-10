@@ -2,6 +2,11 @@ const util = require('util');
 const exec =  util.promisify(require("child_process").exec);
 const sslChecker = require('ssl-checker');
 
+const process = require('process');
+const argUrl = process.argv[2];
+console.log(argUrl);
+
+
 const SSLStatus = async (hostname) => await sslChecker(hostname, {method: "GET", port: "443"});
 const legoVersion = async ()=>{
     const {stdout, stderr} = await exec("lego --version")
@@ -46,15 +51,14 @@ const renewCertificate = async (url)=>{
         console.log(responseStartServer.stdout);
         const responseStatusServer = await statusServer();
         console.log(responseStatusServer.stdout);
+        return "Fin";
     }else{
         return console.log(`${Status} ${legoV}`)
     }
 }
 
-renewCertificate("minerpa.com.pa")
+renewCertificate(argUrl)
         .then((result) => {
             console.log("Servidor Corriendo")
             console.info(result)
-        }).catch(e =>{
-            console.info(e)
-        });
+        }).catch(e => e );
