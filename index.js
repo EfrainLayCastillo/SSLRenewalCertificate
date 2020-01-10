@@ -51,7 +51,7 @@ const renewCertificate = async (url)=>{
     }
 }
 
-renewCertificate("lacayolaw.com")
+renewCertificate("minerpa.com.pa")
         .then((result) => {
             console.log("Servidor Corriendo")
             console.info(result)
