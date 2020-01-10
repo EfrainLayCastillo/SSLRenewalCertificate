@@ -23,15 +23,12 @@ const startServer = async()=>{
 
 const renewCertificate = async (url)=>{
     const StopServer = await stopServer(url)
-    if(StopServer){
+
         console.log("Listo para actualizar")
         const {stdout,  stderr} = await exec(`sudo /opt/bitnami/letsencrypt/lego -tls --email="soporte@bluetideconsulting.com" --domains="${url}" --path="/opt/bitnami/letsencrypt"`)
         console.log("Iniciando Servidor")
         const startServer = await startServer();
         console.log("Servidor Corriendo")
-    }else{
-        return "No se detuvo el servidor";
-    }
 }
 
 renewCertificate("lacayolaw.com")
