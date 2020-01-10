@@ -18,7 +18,7 @@ const stopServer = async (url) =>{
 
 const startServer = async()=>{
     const {stdout, stderr} = await exec("sudo /opt/bitnami/ctlscript.sh start")
-    return true
+    return stdout;
 }
 
 const renewCertificate = async (url)=>{
@@ -26,8 +26,11 @@ const renewCertificate = async (url)=>{
 
         console.log("Listo para actualizar")
         const {stdout,  stderr} = await exec(`sudo /opt/bitnami/letsencrypt/lego -tls --email="soporte@bluetideconsulting.com" --domains="${url}" --path="/opt/bitnami/letsencrypt"`)
+        console.log(stdout.toString());
+        console.log(stderr.toString());
         console.log("Iniciando Servidor")
-        const startServer = await startServer();
+        const Start = await startServer();
+        console.log(Start.toString());
         console.log("Servidor Corriendo")
 }
 
