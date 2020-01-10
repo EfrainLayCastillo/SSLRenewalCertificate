@@ -43,7 +43,7 @@ const renewCertificate = async (url)=>{
     if(Status.daysRemaining < 30 && legoV != true){
         const responseStopServer = await stopServer(url)
         console.log(responseStopServer.stdout);
-        const {stdout,  stderr} = await exec(`sudo /opt/bitnami/letsencrypt/lego --tls --email="soporte@bluetideconsulting.com" --domains="${url}" --path="/opt/bitnami/letsencrypt" renew --days 90`)
+        const {stdout,  stderr} = await exec(`sudo lego --tls --email="soporte@bluetideconsulting.com" --domains="${url}" --path="/etc/lego" renew --days 90`)
         if(stderr != ''){
             console.log(stderr.toString())
             console.log(stdout.toString())
