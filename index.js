@@ -38,9 +38,9 @@ const statusServer = async ()=>{
 }
 
 const renewCertificate = async (url)=>{
-    let Status = await SSLStatus(url)
+    // let Status = await SSLStatus(url)
     const legoV = await legoVersion()
-    if(Status.daysRemaining < 30 && legoV != true){
+    if(legoV != true){
         const responseStopServer = await stopServer(url)
         console.log(responseStopServer.stdout);
         const {stdout,  stderr} = await exec(`sudo lego --tls --email="soporte@bluetideconsulting.com" --domains="${url}" --path="/etc/lego" renew --days 90`)
