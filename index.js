@@ -7,7 +7,7 @@ const argUrl = process.argv[2];
 console.log(argUrl);
 
 
-const SSLStatus = async (hostname) => await sslChecker(hostname, {method: "GET", port: "443"});
+const SSLStatus = async (hostname) => await sslChecker(hostname, {method: "GET", port: "443"}).then(console.info);
 const legoVersion = async ()=>{
     const {stdout, stderr} = await exec("sudo lego --version")
     let number
