@@ -1,0 +1,26 @@
+<div class="jumbotron">
+  <h1 class="display-4">Renewal Cat!</h1>
+  <p class="lead">Beta APP, Project listing to inspect SSL certificate, to don't miss the renew.</p>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Domain</th>
+      <th scope="col">Status</th>
+      <th scope="col">Valido</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {{#each servers}}
+    <tr>
+      <th scope="row">{{@index}}</th>
+      <td><a href="https://{{{this.domain}}}" target="_blank">{{this.domain}}</a></td>
+      <td>{{this.daysRemaining}} días restantes {{#unless this.error}} <i class="fas fa-circle green"></i> {{else}} <i class="fas fa-circle red"></i>{{/unless}}</td>
+      <td>{{this.validTo}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
