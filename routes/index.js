@@ -1,11 +1,10 @@
-var express = require('express');
-var router = express.Router();
-var SSLStatus = require('../models/certificate');
+const express = require('express');
+const router = express.Router();
+const SSLStatus = require('../models/certificate');
+// Files utils
+const projects = require('../utils/projects.json');
 
-const Server = [
-  { dns: 'bluetideconsulting.com' },
-  { dns: 'dicarina.com' },
-];
+const Server = projects;
 
 
 

@@ -9,3 +9,7 @@ a {
 .red {
   color: #a50000;
 }
+
+.grid-item {
+  width: 100%;
+}
