@@ -13,3 +13,7 @@ a {
 .grid-item {
   width: 100%;
 }
+
+.warning-color {
+  color: #ffc107;
+}

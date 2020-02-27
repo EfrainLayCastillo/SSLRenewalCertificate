@@ -10,14 +10,22 @@
       <div class="col-md-1">
         {{@index}}
       </div>
-      <div class="col-md-5">
+      <div class="col-md-4">
         <a href="https://{{{this.domain}}}" target="_blank">{{this.domain}}</a>
       </div>
       <div class="col-md-3">
-        <span class="days">{{this.daysRemaining}}</span> días restantes {{#unless this.error}} <i class="fas fa-circle green"></i> {{else}} <i class="fas fa-circle red"></i>{{/unless}}
+        <span class="days">{{this.daysRemaining}}</span> {{#unless this.error}}días restantes <i class="fas fa-circle {{warning this.daysRemaining}}"></i> {{else}} Error en el servidor <i class="fas fa-circle red"></i>{{/unless}}
       </div>
       <div class="col-md-3">
-        {{this.validTo}}
+        {{#unless this.error}}
+          {{this.validTo}}
+        {{else}}
+          {{this.error}}
+        {{/unless}}
+      </div>
+      <div class="col-md-1">
+        <button type="button" class="btn btn-primary btn-sm" {{disable this.daysRemaining}}>Renew</button>
+
       </div>
     </div>
   </div>
