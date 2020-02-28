@@ -20,7 +20,10 @@ router.get('/', async function(req, res, next) {
 });
 
 router.post('/renewal', (req, res)=>{
-  res.send("hola");
+
+  const IPServer = req.params.id;
+
+  res.send(`Hola ${IPServer}`);
 });
 
 
