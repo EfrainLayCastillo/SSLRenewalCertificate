@@ -19,4 +19,10 @@ router.get('/', async function(req, res, next) {
   res.render('index', { title: 'Express', servers: json });
 });
 
+router.post('/renewal', (req, res)=>{
+  res.send("hola");
+});
+
+
+
 module.exports = router;

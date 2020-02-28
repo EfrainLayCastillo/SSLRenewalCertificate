@@ -6,6 +6,9 @@ const register = (Handlebars)=>{
         },
         warning: (value, options)=>{
             return (value <= 15) ?  "warning-color": "green";
+        },
+        renewalActive: (value, options)=>{
+            if(value <= 29)return "renewalActive";
         }
     };
     if (Handlebars && typeof Handlebars.registerHelper === "function") {

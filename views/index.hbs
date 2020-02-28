@@ -24,8 +24,7 @@
         {{/unless}}
       </div>
       <div class="col-md-1">
-        <button type="button" class="btn btn-primary btn-sm" {{disable this.daysRemaining}}>Renew</button>
-
+        <button type="button" class="btn btn-primary btn-sm {{renewalActive this.daysRemaining}}" {{disable this.daysRemaining}}>Renew</button>
       </div>
     </div>
   </div>
