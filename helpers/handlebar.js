@@ -2,13 +2,13 @@
 const register = (Handlebars)=>{
     const helpers = {
         disable: (value, options)=>{
-            if(value >= 29)return "disabled";
+            if(value >= 30)return "disabled";
         },
         warning: (value, options)=>{
             return (value <= 15) ?  "warning-color": "green";
         },
         renewalActive: (value, options)=>{
-            if(value <= 29)return "renewalActive";
+            if(value <= 30)return "renewalActive";
         }
     };
     if (Handlebars && typeof Handlebars.registerHelper === "function") {

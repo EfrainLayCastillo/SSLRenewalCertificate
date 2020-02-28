@@ -1,32 +1,36 @@
 <div class="jumbotron">
   <h1 class="display-4">Renewal Cat!</h1>
   <p class="lead">Beta APP, Project listing to inspect SSL certificate, to don't miss the renew.</p>
+  <hr class="my-4">
+  <button id="listing" type="button" class="btn btn-primary">Listing Servers</button>
 </div>
 
-<div class="row grid">
-{{#each servers}}
-  <div class="grid-item col-md-12 my-2">
-    <div class="row">
-      <div class="col-md-1">
-        {{@index}}
+<div class="row grid" id="render-listing">
+  <script id="search-results" type="text/x-handlebars-template">
+    {{#each servers}}
+      <div class="grid-item col-md-12 my-2">
+        <div class="row">
+          <div class="col-md-1">
+            {{@index}}
+          </div>
+          <div class="col-md-4">
+            <a href="https://{{{this.domain}}}" target="_blank">{{this.domain}}</a>
+          </div>
+          <div class="col-md-3">
+            <span class="days">{{this.daysRemaining}}</span> {{#unless this.error}}días restantes <i class="fas fa-circle {{warning this.daysRemaining}}"></i> {{else}} Error en el servidor <i class="fas fa-circle red"></i>{{/unless}}
+          </div>
+          <div class="col-md-3">
+            {{#unless this.error}}
+              {{this.validTo}}
+            {{else}}
+              {{this.error}}
+            {{/unless}}
+          </div>
+          <div class="col-md-1">
+            <button type="button" class="btn btn-primary btn-sm {{renewalActive this.daysRemaining}}" {{disable this.daysRemaining}}>Renew</button>
+          </div>
+        </div>
       </div>
-      <div class="col-md-4">
-        <a href="https://{{{this.domain}}}" target="_blank">{{this.domain}}</a>
-      </div>
-      <div class="col-md-3">
-        <span class="days">{{this.daysRemaining}}</span> {{#unless this.error}}días restantes <i class="fas fa-circle {{warning this.daysRemaining}}"></i> {{else}} Error en el servidor <i class="fas fa-circle red"></i>{{/unless}}
-      </div>
-      <div class="col-md-3">
-        {{#unless this.error}}
-          {{this.validTo}}
-        {{else}}
-          {{this.error}}
-        {{/unless}}
-      </div>
-      <div class="col-md-1">
-        <button type="button" class="btn btn-primary btn-sm {{renewalActive this.daysRemaining}}" {{disable this.daysRemaining}}>Renew</button>
-      </div>
-    </div>
-  </div>
-{{/each}}
+    {{/each}}
+  </script>
 </div>
