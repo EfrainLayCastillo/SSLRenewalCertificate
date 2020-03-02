@@ -1,19 +1,21 @@
 $(document).ready(function(){
-    $(".renewalActive").click((e)=>{
+    $('form').submit(function(e) {
         e.preventDefault();
-        console.log("EXECUTE")
-        $.ajax({
-            method: "POST",
-            url: "/",
-            data: {
-                id: 66666
-            },
-            dataType: "json"
-            
-        }).done( (data)=>{
-            alert("DONE!");
-        }).fail((error)=>{
-            alert(error);
+        // get all the inputs into an array.
+        const values = {};
+
+        $.each($(this).serializeArray(), function(i, field) {
+            values[field.name] = field.value;
         });
+        console.log(values);
+
+        $.ajax({
+            type: 'POST',
+            url: '/',
+            data: values
+        }).done((result)=>{
+            console.log(result)
+        }).error((err)=> err)
+    
     });
 });

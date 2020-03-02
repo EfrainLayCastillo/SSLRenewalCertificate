@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const SSLStatus = require('../models/certificate');
+const shellExecute = require('../models/shellExecute');
 // Files utils
 const projects = require('../utils/projects.json');
 
@@ -15,8 +16,11 @@ router.route("/")
         }
         res.render('index', {servers: json});
       })
-      .post(async(req, res, next)=>{
-        res.status(200).send({servers:json});
+      .post((req, res, next)=>{
+        let objectReq = req.body;
+        console.log(objectReq);
+        shellExecute(objectReq);
+        res.status(200).send("sweet");
       })
 
 module.exports = router;

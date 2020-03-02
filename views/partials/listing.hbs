@@ -23,8 +23,8 @@
     </div>
   </div>
   <!-- Modal -->
-<div class="modal fade" id="#staticBackdrop-{{@index}}" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+<div class="modal fade" id="staticBackdrop-{{@index}}" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">Form to execute Script Injection in to the server</h5>
@@ -36,13 +36,20 @@
         <form>
           <div class="row">
             <div class="col">
-              <input type="text" class="form-control" placeholder="User">
+              <input name="username" type="text" class="form-control" placeholder="User">
             </div>
             <div class="col">
-              <input type="text" class="form-control" value="{{this.publicIP}}" placeholder="{{this.publicIP}}" disabled>
+              <input name="publicIP" type="text" class="form-control" value="{{this.publicIP}}" placeholder="{{this.publicIP}}">
+            </div>
+            <div class="col">
+              <button type="submit" class="btn btn-primary">Execute</button>
+            </div>
+            <div class="col-md-12">
+              <div id="result">
+
+              </div>
             </div>
           </div>
-            <button type="submit" class="btn btn-primary">Execute Script</button>
         </form>
       </div>
       <div class="modal-footer">
