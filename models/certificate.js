@@ -10,7 +10,7 @@ const getDaysRemaining = (validTo) => {
     return daysRemaining;
 };
 
-const handleDomain = async ({dns, port, path}) =>{
+const handleDomain = async ({dns, publicIP, port, path}) =>{
     const requestURL = `https://${dns}${port ? ':' + port : ''}${path ? '/' + path : ''}`;
     let promise =  new Promise((resolve, reject) => axios({
         url: requestURL,
@@ -26,6 +26,7 @@ const handleDomain = async ({dns, port, path}) =>{
     
         resolve({
           domain: dns,
+          publicIP: publicIP || '',
           daysRemaining: getDaysRemaining(validTo),
           valid: connection.authorized || false,
           validFrom: validFrom.toDateString(),

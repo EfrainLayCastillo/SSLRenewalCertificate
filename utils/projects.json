@@ -1,7 +1,7 @@
 [
     {"dns": "bluetideconsulting.com"},
     {"dns": "dicarina.com"},
-    {"dns": "fmultrastereo.com"},
+    {"dns": "fmultrastereo.com" , "publicIP": "34.225.211.199"},
     {"dns": "thepanamaclinic.com"},
     {"dns": "prococle.com"},
     {"dns": "www.seisa-pty.com"},
