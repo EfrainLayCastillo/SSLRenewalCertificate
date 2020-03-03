@@ -11,14 +11,12 @@ router.route("/")
         const json = [];
         for(data of projects){
           responseData = await SSLStatus(data);
-          console.log(responseData);
           json.push(responseData);
         }
         res.render('index', {servers: json});
       })
       .post((req, res, next)=>{
         let objectReq = req.body;
-        console.log(objectReq);
         shellExecute(objectReq);
         res.status(200).send("sweet");
       })
