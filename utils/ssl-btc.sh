@@ -5,15 +5,15 @@
 currentlegov="4.0.0"
 versionLego="3.3.0"
 
-pathLet="/opt/bitnami/letsencrypt"
-pathEct="/etc/lego"
+path_let="/opt/bitnami/letsencrypt"
+path_ect="/etc/lego"
 
 email="soporte@bluetideconsulting.com"
 
 #functions
 
 downloadlego() {
-    # cd /tmp/ ; wget  https://github.com/go-acme/lego/releases/download/v${versionLego}/lego_v${versionLego}_linux_amd64.tar.gz ; tar -xf lego_v${versionLego}_linux_amd64.tar.gz ; rm lego_v${versionLego}_linux_amd64.tar.gz ; cd
+     cd /tmp/ ; wget  https://github.com/go-acme/lego/releases/download/v${versionLego}/lego_v${versionLego}_linux_amd64.tar.gz ; tar -xf lego_v${versionLego}_linux_amd64.tar.gz ; rm lego_v${versionLego}_linux_amd64.tar.gz ; cd
 	if [ -f /tmp/lego ]; then 
 		echo "Lego Download"
 	fi
@@ -21,21 +21,24 @@ downloadlego() {
 
 installLego() {
 	
-	if [ -f ~/bitnami/opt/bitnami/letsencrypt/lego ]; then 
+	if [ -f /opt/bitnami/letsencrypt/lego ]; then 
         echo "Lego exists old version"
-		mv ~/bitnami/opt/bitnami/letsencrypt/lego ~/bitnami/opt/bitnami/letsencrypt/lego.old ; mv ~/bitnami/tmp/lego ~/bitnami/opt/bitnami/letsencrypt/lego
-		echo "Lego installed"
+		sudo mv /opt/bitnami/letsencrypt/lego /opt/bitnami/letsencrypt/lego.old ; sudo mv /tmp/lego /opt/bitnami/letsencrypt/lego; sudo rm -rf /opt/bitnami/letsencrypt/lego.old
+		echo "Lego installed, moved, old version deleted"
+	elif [ -d /opt/bitnami/letsencrypt ]; then 
+		sudo mv /tmp/lego /opt/bitnami/letsencrypt/lego
+		echo "Lego installed & moved"
 	else
-		mkdir -p /opt/bitnami/letsencrypt ; mv ~/bitnami/tmp/lego ~/bitnami/opt/bitnami/letsencrypt/lego
+		sudo mkdir -p /opt/bitnami/letsencrypt ; sudo mv /tmp/lego /opt/bitnami/letsencrypt/lego
 		echo "Lego installed"
 	fi
 }
 
 checkLego() {
 	
-	if [ -f ~/bitnami/opt/bitnami/letsencrypt/lego ]; then 
+	if [ -f /opt/bitnami/letsencrypt/lego ]; then 
         echo "Lego New Version"
-		sudo  ~/bitnami/opt/bitnami/letsencrypt/lego -version
+		sudo  /opt/bitnami/letsencrypt/lego -version
 	fi
 }
 
@@ -44,15 +47,15 @@ getDirServer() {
 	dir="$(readlink /opt/bitnami/apache2/conf/server.crt)"
 	echo $dir
 	
-	if [[ $dir == *"$pathEct"* ]]; then
- 		echo "ETC LEGO"
-		return pathEct;
-	elif [[ $dir == *"$pathLet"* ]]; then
- 		echo "Letsencrypt"
-		 return pathLet
+	if [[ $dir == *"$path_ect"* ]]; then
+ 		echo "Selected {$path_etc}"
+		PATH_SELECTED=$path_ect
+	elif [[ $dir == *"$path_let"* ]]; then
+ 		echo "Selected {$path_let}"
+		PATH_SELECTED=$path_let
 	else 
 		echo "No encontrado"
-		return "error"
+		PATH_SELECT="error"
 	fi	
 	
 }
@@ -98,13 +101,13 @@ removeTrash() {
 
 echo  "******* LEGO VERSION  **********"
 
-versionlego="$(jekyll -v)"
-echo $versionlego
+version_present="$(lego -v)"
+echo $version_present
 
 #intversion="${versionlego:7:5}"
 
 
-if [[ $versionlego == *"$currentlegov"* ]]; then
+if [[ $versionlego == *"$version_present"* ]]; then
  	echo "Lego Updated"
 else
  	echo "you need update lego"
@@ -112,11 +115,11 @@ else
 	#installLego
 	#checkLego
 	#getDirServer
-	pathselet=$?
-	if [[ $versionlego == "error" ]]; then
-		echo "error";
-	else
-		echo $pathselet
+	#pathselet=$?
+	#if [[ $PATH_SELECTED == "error" ]]; then
+	#	echo "error";
+	#else
+	#	echo $PATH_SELECTED
 fi
 
 
