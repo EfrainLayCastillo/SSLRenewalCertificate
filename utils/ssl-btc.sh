@@ -7,7 +7,7 @@ versionLego="3.3.0"
 
 path_let="/opt/bitnami/letsencrypt"
 path_ect="/etc/lego"
-
+domain=$1
 email="soporte@bluetideconsulting.com"
 
 #functions
@@ -48,58 +48,71 @@ getDirServer() {
 	echo $dir
 	
 	if [[ $dir == *"$path_ect"* ]]; then
- 		echo "Selected {$path_etc}"
+ 		echo "Selected -------------> $path_etc"
 		PATH_SELECTED=$path_ect
+		RENEWSTATE=true
 	elif [[ $dir == *"$path_let"* ]]; then
- 		echo "Selected {$path_let}"
+ 		echo "Selected -------------> $path_let"
 		PATH_SELECTED=$path_let
+		RENEWSTATE=true
 	else 
 		echo "No encontrado"
 		PATH_SELECT="error"
+		RENEWSTATE=false
 	fi	
 	
 }
 
 stopServer() {
 	
-	 if [ -f ~/bitnami/opt/bitnami/letsencrypt/lego ]; then 
-          	echo "Lego exists old version"
-		mv ~/bitnami/opt/bitnami/letsencrypt/lego ~/bitnami/opt/bitnami/letsencrypt/lego.old ; mv ~/bitnami/tmp/lego ~/bitnami/opt/bitnami/letsencrypt/lego 
+	if [ $RENEWSTATE ]; then 
+        echo "Preparando servidor ..."
+		#sudo /opt/bitnami/ctlscript.sh stop
+		sleep 10
+		echo "Servidor STOP"
+	else 
+		echo "Error, Stop script"
+		return .
+	fi
+}
+
+renewSSL() {
+	
+	if [ $RENEWSTATE ]; then 
+        echo "Renew SSL ..."
+		echo "Domain: $domain /n email: $email /n PATH: $PATH_SELECTED"
+		#sudo /opt/bitnami/letsencrypt/lego --tls --email="$email" --domains="$domain" --path="$PATH_SELECTED" renew --days 90
+		sleep 5
+		echo "*****************************************************"
+		echo " <<<<<<<<<<<<<< SSL UPDATE >>>>>>>>>>>>>>"
+		echo "*****************************************************"
 	fi
 }
 
 startServer() {
 	
-	 if [ -f ~/bitnami/opt/bitnami/letsencrypt/lego ]; then 
-          	echo "Lego exists old version"
-		mv ~/bitnami/opt/bitnami/letsencrypt/lego ~/bitnami/opt/bitnami/letsencrypt/lego.old ; mv ~/bitnami/tmp/lego ~/bitnami/opt/bitnami/letsencrypt/lego 
-	fi
-}
-
-
-renewSSL() {
-	
-	 if [ -f ~/bitnami/opt/bitnami/letsencrypt/lego ]; then 
-          	echo "Lego exists old version"
-		mv ~/bitnami/opt/bitnami/letsencrypt/lego ~/bitnami/opt/bitnami/letsencrypt/lego.old ; mv ~/bitnami/tmp/lego ~/bitnami/opt/bitnami/letsencrypt/lego 
+	if [ $RENEWSTATE ]; then 
+        echo "Iniciando servidor ..."
+		#sudo /opt/bitnami/ctlscript.sh start
+		sleep 10
+		echo "Servidor START"
+	else 
+		echo "Error, Stop script"
+		return .
 	fi
 }
 
 removeTrash() {
-	
-	 if [ -f ~/bitnami/opt/bitnami/letsencrypt/lego ]; then 
-          	echo "Lego exists old version"
-		mv ~/bitnami/opt/bitnami/letsencrypt/lego ~/bitnami/opt/bitnami/letsencrypt/lego.old ; mv ~/bitnami/tmp/lego ~/bitnami/opt/bitnami/letsencrypt/lego 
-	fi
+	 #remove trash from servidor
 }
-
 
 #end functions
 
 
-#get lego version
+# --------------------------- MAIN SCRIPT ---------------------------
 
 echo  "******* LEGO VERSION  **********"
+echo  "******* DOMAIN : $domain  **********"
 
 version_present="$(lego -v)"
 echo $version_present
@@ -107,22 +120,24 @@ echo $version_present
 #intversion="${versionlego:7:5}"
 
 
-if [[ $versionlego == *"$version_present"* ]]; then
- 	echo "Lego Updated"
-else
+if [[ $versionlego != *"$version_present"* ]]; then
  	echo "you need update lego"
 	#downloadlego
 	#installLego
 	#checkLego
-	#getDirServer
-	#pathselet=$?
-	#if [[ $PATH_SELECTED == "error" ]]; then
-	#	echo "error";
-	#else
-	#	echo $PATH_SELECTED
 fi
 
+echo "Lego Updated"
+echo "Prepando Update"
+getDirServer
+if [[ $PATH_SELECTED == "error" ]]; then
+	echo "error";
+else
+	stopServer
+	wait $!
+	echo "Servidor Listo..."
+	renewSSL
+	wait $!
+	startServer
 
-
-#bitnami@ip-172-31-32-43:~$ whereis lego
-#lego: /etc/lego /usr/local/bin/lego
+fi
