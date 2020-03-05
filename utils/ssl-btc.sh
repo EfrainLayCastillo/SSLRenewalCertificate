@@ -71,7 +71,7 @@ stopServer() {
 		sleep 10
 		echo "Servidor STOP"
 	else 
-		echo "Error, Stop script"
+		echo "Error, Stop script, state: $RENEWSTATE"
 		return .
 	fi
 }
@@ -97,9 +97,13 @@ startServer() {
 		sleep 10
 		echo "Servidor START"
 	else 
-		echo "Error, Stop script"
+		echo "Error, Stop script, state: $RENEWSTATE"
 		return .
 	fi
+}
+
+checkerCertificate(){
+	echo | openssl s_client -connect $domain:443 2>/dev/null | openssl x509 -noout -dates
 }
 
 removeTrash() {
@@ -119,6 +123,10 @@ echo $version_present
 
 #intversion="${versionlego:7:5}"
 
+if [[ -z "$domain" ]]; then
+	echo "Need add your domain"
+	return .
+fi
 
 if [[ $versionlego != *"$version_present"* ]]; then
  	echo "you need update lego"
@@ -128,14 +136,14 @@ if [[ $versionlego != *"$version_present"* ]]; then
 fi
 
 echo "Lego Updated"
-echo "Prepando Update"
+echo "Prepando Update ..."
 getDirServer
 if [[ $PATH_SELECTED == "error" ]]; then
-	echo "error";
+	echo "error in $PATH_SELECTED";
 else
 	stopServer
 	wait $!
-	echo "Servidor Listo..."
+	echo "Servidor Listo para renew..."
 	renewSSL
 	wait $!
 	startServer
