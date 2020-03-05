@@ -17,8 +17,15 @@ router.route("/")
       })
       .post((req, res, next)=>{
         let objectReq = req.body;
-        shellExecute(objectReq);
-        res.status(200).send("sweet");
-      })
+        const resultExuted = shellExecute(objectReq);
+        console.log("ENTNADO AL PROMISE");
+        resultExuted.then((successMessage)=>{
+          console.log("Yay! " + successMessage);
+          console.log("--------------------------------------------------");
+          console.log(resultExuted);
+          res.redirect('/');
+        });
+      
+      });
 
 module.exports = router;
