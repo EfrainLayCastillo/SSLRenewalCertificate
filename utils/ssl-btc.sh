@@ -34,11 +34,30 @@ installLego() {
 	fi
 }
 
+updatePath(){
+	 
+	legopath="$(which lego)"
+	if [[ $legopath != *"$path_let"* ]]; then
+    	echo "Update PATH Lego"
+    	echo "export PATH=$PATH:/opt/bitnami/letsencrypt/" >> ~/.bashrc
+    	sudo rm /usr/local/bin/lego
+    	source .bashrc
+    	which lego
+		echo "UPDATE PATH"
+	else 
+		echo "LEGO PATH EXISTS ..."
+	if
+
+    echo "NEW VERSION LEGO"
+	lego -v
+
+}
+
 checkLego() {
 	
 	if [ -f /opt/bitnami/letsencrypt/lego ]; then 
-        echo "Lego New Version"
-		sudo  /opt/bitnami/letsencrypt/lego -version
+        echo "Lego exists in $path_let"
+		updatePath
 	fi
 }
 
@@ -104,10 +123,6 @@ startServer() {
 
 checkerCertificate(){
 	echo | openssl s_client -connect $domain:443 2>/dev/null | openssl x509 -noout -dates
-}
-
-removeTrash() {
-	 #remove trash from servidor
 }
 
 #end functions
