@@ -14,7 +14,7 @@ $(document).ready(function(){
             url: '/',
             data: values
         }).done((result)=>{
-            console.log(result)
+            window.location.href = "/";
         }).error((err)=> err)
     
     });

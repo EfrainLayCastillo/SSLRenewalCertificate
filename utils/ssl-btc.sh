@@ -38,9 +38,9 @@ updatePath(){
 	legopath="$(which lego)"
 	if [[ $legopath != *"$path_let"* ]]; then
     	echo "Update PATH Lego"
-    	echo "export PATH=$PATH:/opt/bitnami/letsencrypt/" >> ~/.bashrc
-    	sudo rm /usr/local/bin/lego
-    	source ~/.bashrc
+    	echo "export PATH=$PATH:/opt/bitnami/letsencrypt/" >> ~/.bashrc ;
+    	sudo rm /usr/local/bin/lego ;
+    	source ~/.bashrc ;
     	which lego
 		echo "UPDATE PATH"
 	else 
@@ -143,10 +143,9 @@ if [[ -z "$domain" ]]; then
 	echo "Need add your domain"
 	return .
 fi
-echo $version_present
 
 legopath="$(which lego)"
-if [ $versionlego != *"$version_present"* ]  || [ -z "$legopath" ]; then
+if [ "$versionlego" != *"$version_present"* ]  || [ -z "$legopath" ]; then
  	echo "you need update lego"
 	downloadlego
 	installLego
@@ -169,4 +168,4 @@ else
 	checkerCertificate
 
 fi
-return 1
+exit 1

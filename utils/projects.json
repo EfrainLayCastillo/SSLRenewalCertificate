@@ -1,8 +1,11 @@
 [
-    {"dns": "bluetideconsulting.com"},
-    {"dns": "dicarina.com"},
     {"dns": "fmultrastereo.com" , "publicIP": "34.225.211.199"},
-    {"dns": "thepanamaclinic.com"}
-    
-    
+    {"dns": "thepanamaclinic.com", "publicIP": "52.22.105.155"},
+    {"dns": "udggroup.com", "publicIP": "54.158.40.159"},
+    {"dns": "industriasexpress.com", "publicIP": "54.160.145.168"},
+    {"dns": "bluetideconsulting.com", "publicIP": "35.168.177.24"},
+    {"dns": "ciedupanama.org", "publicIP": "34.196.169.228"},
+    {"dns": "pacificcenter.com.pa", "publicIP": "34.233.109.140"},
+    {"dns": "scalaschools.com", "publicIP": "18.214.205.37"},
+    {"dns":"teachermanuela.com","publicIP":"54.86.35.42"}
 ]
