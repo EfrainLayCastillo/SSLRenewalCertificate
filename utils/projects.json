@@ -7,5 +7,8 @@
     {"dns": "ciedupanama.org", "publicIP": "34.196.169.228"},
     {"dns": "pacificcenter.com.pa", "publicIP": "34.233.109.140"},
     {"dns": "scalaschools.com", "publicIP": "18.214.205.37"},
-    {"dns":"teachermanuela.com","publicIP":"54.86.35.42"}
+    {"dns":"teachermanuela.com","publicIP":"54.86.35.42"},
+    {"dns": "serviciodeseguros.com", "publicIP": "34.231.102.92"},
+    {"dns": "lacayolaw.com", "publicIP": "54.165.58.40"},
+    {"dns": "copatalento.com", "publicIP": "54.165.14.28"}
 ]
